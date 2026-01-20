@@ -1,245 +1,132 @@
-# Dataset Documentation and Requirements
+# Datasets
 
-## Overview
+## Primary Dataset: Collaboration Interaction Logs
 
-This document outlines the data collection requirements, dataset specifications, and data management protocols for the AI-human collaboration research project. Each experiment requires specific data types and collection methods to test our hypotheses effectively.
+### Description
+Timestamped logs of human-AI interactions during research collaboration tasks.
 
-## Dataset Categories
+### Schema
+```json
+{
+  "session_id": "string",
+  "participant_id": "string",
+  "condition": "static_ai_lead | static_human_lead | dynamic",
+  "timestamp": "ISO8601",
+  "actor": "human | ai",
+  "action_type": "query | response | edit | feedback | role_change",
+  "content": "string",
+  "metadata": {
+    "confidence": "float (0-1)",
+    "task_phase": "exploration | synthesis | writing | review",
+    "role_at_time": "leader | supporter | equal"
+  }
+}
+```
 
-### 1. Interaction Process Data
+### Expected Size
+- 30 participants x 3 conditions x ~200 interactions = ~18,000 interaction records
+- Estimated storage: ~50 MB
 
-**Description**: Detailed logs of human-AI collaborative interactions across all experimental conditions.
+### Collection Method
+- Automated logging during experiment platform use
+- Manual annotation for role changes and task phases
 
-**Data Elements**:
-- Timestamped interaction logs (queries, responses, actions)
-- Role allocation decisions and transitions
-- Context utilization patterns
-- Error occurrences and recovery actions
-- Session boundaries and continuity markers
+---
 
-**Collection Method**: Automated logging through collaboration platform
-**Volume Estimate**: ~500GB for full study (275 participants × ~10 hours each)
-**Privacy Level**: De-identified interaction logs
-**Retention Period**: 7 years (standard research data retention)
+## Secondary Dataset: Task Output Quality Ratings
 
-### 2. Research Output Quality Data
+### Description
+Expert ratings of research outputs produced during experiments.
 
-**Description**: Systematic evaluation of research products generated through collaborative processes.
+### Schema
+```json
+{
+  "output_id": "string",
+  "session_id": "string",
+  "rater_id": "string",
+  "quality_dimensions": {
+    "accuracy": "int (1-5)",
+    "completeness": "int (1-5)",
+    "organization": "int (1-5)",
+    "insight_depth": "int (1-5)",
+    "writing_quality": "int (1-5)"
+  },
+  "overall_score": "int (1-5)",
+  "comments": "string"
+}
+```
 
-**Data Elements**:
-- Literature review documents and synthesis reports
-- Hypothesis generation artifacts
-- Research proposals and experimental designs
-- Analysis reports and interpretations
-- Expert quality ratings using standardized rubrics
+### Expected Size
+- 90 outputs x 3 raters = 270 rating records
+- Estimated storage: ~1 MB
 
-**Collection Method**: Participant submissions + expert evaluation panels
-**Volume Estimate**: ~50GB (text documents and evaluation scores)
-**Privacy Level**: Anonymized research outputs
-**Retention Period**: 10 years (for replication and meta-analysis)
+---
 
-### 3. User Experience and Satisfaction Data
+## Tertiary Dataset: Participant Surveys
 
-**Description**: Subjective measures of collaboration experience, satisfaction, and perceived effectiveness.
+### Description
+Pre/post surveys measuring cognitive load, satisfaction, and trust.
 
-**Data Elements**:
-- Pre/post collaboration surveys (trust, expectations, expertise)
-- Session-wise satisfaction ratings
-- Perceived agency and control measures
-- Collaboration preference indicators
-- Qualitative feedback through interviews
+### Instruments
+1. **NASA-TLX**: Cognitive load (6 dimensions)
+2. **Trust in Automation Scale**: AI trust (12 items)
+3. **Collaboration Satisfaction Survey**: Custom (10 items)
+4. **Demographics**: Background questionnaire
 
-**Collection Method**: Online surveys + semi-structured interviews
-**Volume Estimate**: ~5GB (survey responses and interview transcripts)
-**Privacy Level**: Confidential with consent for research use
-**Retention Period**: 5 years
+### Schema
+```json
+{
+  "participant_id": "string",
+  "session_id": "string",
+  "survey_type": "pre | post",
+  "nasa_tlx": {
+    "mental_demand": "int (1-21)",
+    "physical_demand": "int (1-21)",
+    "temporal_demand": "int (1-21)",
+    "performance": "int (1-21)",
+    "effort": "int (1-21)",
+    "frustration": "int (1-21)"
+  },
+  "trust_scores": "array[int]",
+  "satisfaction_scores": "array[int]",
+  "open_responses": "array[string]"
+}
+```
 
-### 4. Cognitive and Learning Assessment Data
+---
 
-**Description**: Measures of learning, knowledge retention, and cognitive load during collaboration.
+## External Datasets for Benchmarking
 
-**Data Elements**:
-- Pre/post knowledge assessments
-- Concept mapping exercises
-- Working memory and cognitive load indicators
-- Learning transfer measures
-- Metacognitive awareness questionnaires
+### ACL Anthology
+- **Purpose**: Source papers for literature review tasks
+- **URL**: https://aclanthology.org/
+- **Usage**: Select 15-paper sets on specific topics
 
-**Collection Method**: Standardized assessments and custom instruments
-**Volume Estimate**: ~10GB (assessment responses and cognitive measures)
-**Privacy Level**: De-identified cognitive assessment data
-**Retention Period**: 7 years
+### Semantic Scholar API
+- **Purpose**: Paper metadata and citation networks
+- **URL**: https://api.semanticscholar.org/
+- **Usage**: Validate coverage metrics
 
-### 5. Contextual and Demographic Data
+---
 
-**Description**: Background information about participants, tasks, and experimental conditions.
+## Data Management Plan
 
-**Data Elements**:
-- Participant demographics and expertise levels
-- Research domain and task characteristics
-- Experimental condition assignments
-- Environmental factors (time of day, session duration)
-- Technical system performance metrics
+### Storage
+- Primary storage: Encrypted local server
+- Backup: Institutional cloud storage
+- Version control: Git LFS for large files
 
-**Collection Method**: Registration forms and system logs
-**Volume Estimate**: ~1GB (structured demographic and contextual data)
-**Privacy Level**: Minimal personal information, research-focused
-**Retention Period**: 7 years
+### Privacy
+- All participant data pseudonymized
+- Consent forms collected before participation
+- Data retention: 5 years post-publication
 
-## Experiment-Specific Dataset Requirements
+### Access
+- Raw data: Research team only
+- Anonymized data: Available upon request after publication
+- Aggregated results: Publicly available
 
-### Experiment 1: Dynamic Role Allocation
-- **Primary Dataset**: Interaction process data with detailed role transition logs
-- **Outcome Measures**: Research quality ratings, efficiency metrics
-- **Special Requirements**: Real-time competency assessment scores, role allocation decision logs
-- **Sample Size**: 60 participants × 8 hours = 480 hours of interaction data
-
-### Experiment 2: Iterative vs Sequential Collaboration
-- **Primary Dataset**: Longitudinal interaction data with hypothesis evolution tracking
-- **Outcome Measures**: Research velocity indicators, idea network analysis
-- **Special Requirements**: Version control of hypothesis documents, temporal analysis capabilities
-- **Sample Size**: 40 teams × 8 weeks = 320 team-weeks of collaborative data
-
-### Experiment 3: Shared Context Management
-- **Primary Dataset**: Multi-session interaction logs with context utilization tracking
-- **Outcome Measures**: Learning curve analysis, consistency measures
-- **Special Requirements**: Context database with cross-reference capabilities
-- **Sample Size**: 50 participants × 18 sessions = 900 individual sessions
-
-### Experiment 4: Metacognitive Collaboration Protocol
-- **Primary Dataset**: Process reflection logs and friction incident reports
-- **Outcome Measures**: Coordination efficiency, satisfaction measures
-- **Special Requirements**: Metacognitive reflection artifacts, process mining capabilities
-- **Sample Size**: 45 participants × 5 weeks = 225 participant-weeks
-
-### Experiment 5: Task-Specific Optimization
-- **Primary Dataset**: Cross-task performance data with task characteristic annotations
-- **Outcome Measures**: Task-specific quality rubrics, adaptation measures
-- **Special Requirements**: Task taxonomy and feature encoding
-- **Sample Size**: 80 participants × 4 tasks = 320 task completion instances
-
-## Data Collection Infrastructure
-
-### Technical Platform Requirements
-
-**Core Collaboration System**:
-- Real-time human-AI interaction interface
-- Comprehensive logging and analytics
-- Context management and persistence
-- Role allocation algorithms
-- Multi-user support for team experiments
-
-**Data Management System**:
-- Secure data storage with encryption
-- Automated backup and versioning
-- De-identification and anonymization tools
-- Export capabilities for analysis
-- GDPR and IRB compliance features
-
-**Analysis Infrastructure**:
-- Statistical analysis environment (R/Python)
-- Qualitative analysis tools (NVivo/Atlas.ti)
-- Machine learning pipeline for pattern detection
-- Visualization and reporting capabilities
-- Reproducible analysis workflows
-
-### Quality Assurance Protocols
-
-**Data Validation**:
-- Real-time data quality monitoring
-- Completeness checks and missing data handling
-- Consistency validation across data sources
-- Outlier detection and investigation procedures
-
-**Reliability Measures**:
-- Inter-rater reliability for quality assessments (target: κ > 0.7)
-- Test-retest reliability for repeated measures
-- Internal consistency for multi-item scales (target: α > 0.8)
-- Cross-validation for predictive models
-
-## Ethical and Legal Considerations
-
-### IRB Compliance
-- Full IRB approval before data collection
-- Informed consent for all data types
-- Special provisions for qualitative interview data
-- Right to withdrawal and data deletion
-
-### Privacy Protection
-- De-identification protocols for all datasets
-- Secure data transmission and storage
-- Access controls and audit trails
-- Data sharing agreements for collaborations
-
-### GDPR Compliance
-- Lawful basis for processing (legitimate research interest)
-- Data minimization principles
-- Subject access rights and data portability
-- Data retention and deletion schedules
-
-## Data Sharing and Replication
-
-### Open Science Commitments
-- De-identified datasets to be shared via appropriate repositories
-- Analysis code and documentation publicly available
-- Replication materials and protocols documented
-- Pre-registration of analysis plans
-
-### Repository Strategy
-- **Interaction Data**: OSF or similar research data repository
-- **Research Outputs**: Domain-specific archives where appropriate
-- **Analysis Code**: GitHub with DOI assignment
-- **Documentation**: Comprehensive data dictionaries and codebooks
-
-## Analysis Plan Integration
-
-### Primary Analyses
-Each experiment requires specific analytical approaches:
-
-1. **Dynamic Role Allocation**: ANOVA with regression modeling
-2. **Iterative Collaboration**: Mixed-effects longitudinal modeling
-3. **Context Management**: Growth curve analysis with content coding
-4. **Metacognitive Protocols**: Event analysis and process mining
-5. **Task Optimization**: Cross-task comparative modeling
-
-### Secondary Analyses
-- Meta-analysis across experiments for common measures
-- Machine learning approaches for pattern discovery
-- Network analysis for collaboration structure
-- Predictive modeling for optimal collaboration design
-
-### Reproducibility Standards
-- Version control for all analysis code
-- Containerized analysis environments
-- Comprehensive documentation of analysis decisions
-- Sensitivity analyses and robustness checks
-
-## Resource Requirements
-
-### Storage Needs
-- Primary storage: 1TB (raw data and backups)
-- Analysis workspace: 500GB
-- Archive storage: 2TB (long-term retention)
-
-### Computing Resources
-- Analysis servers with GPU support for ML tasks
-- Statistical software licenses (R, SPSS, etc.)
-- Qualitative analysis software
-- Collaboration platform hosting
-
-### Personnel Requirements
-- Data manager (0.5 FTE) for quality assurance and curation
-- Research programmer (0.3 FTE) for platform development
-- Statistical analyst (0.25 FTE) for specialized analyses
-
-## Risk Mitigation
-
-### Technical Risks
-- **Data Loss**: Automated backups with offsite storage
-- **System Failure**: Redundant systems and manual backup procedures
-- **Scale Issues**: Cloud-based infrastructure with elastic scaling
-
-### Compliance Risks
-- **Privacy Breach**: Encryption, access controls, and audit procedures
-- **IRB Violations**: Regular compliance reviews and staff training
-- **Data Quality Issues**: Continuous monitoring and validation protocols
+### Ethics
+- IRB approval required before data collection
+- Participants can withdraw data within 30 days
+- No personally identifiable information in published datasets

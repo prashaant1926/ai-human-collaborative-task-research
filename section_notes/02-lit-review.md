@@ -1,149 +1,83 @@
-# Literature Review: AI-Human Collaboration in Research Tasks
+# Literature Review Notes
 
-## Overview
+## Key Themes Across Literature
 
-This literature review focuses on identifying key patterns, limitations, and opportunities in AI-human collaborative systems, particularly for knowledge work and research tasks. We examine papers across HCI, AI, cognitive science, and collaborative systems.
+### Theme 1: Human-AI Teaming Frameworks
 
-## Key Research Areas
+The literature converges on viewing human-AI collaboration through a **teaming lens** rather than a tool-use lens. Key points:
 
-### 1. Human-AI Collaborative Frameworks
+- Humans and AI should be viewed as teammates with complementary capabilities
+- Effective teams require shared mental models and mutual understanding
+- Trust calibration is critical for appropriate reliance
 
-**Mixed-Initiative Systems**
-- Classical work on mixed-initiative interfaces (Horvitz 1999) established principles for shared control
-- Recent work on collaborative AI (Amershi et al. 2019) provides design guidelines for human-AI partnerships
-- Gap: Most frameworks assume static role definitions rather than adaptive allocation
+**Key Papers:**
+- Bansal et al. (2019) - "Beyond Accuracy: The Role of Mental Models in Human-AI Team Performance"
+- Amershi et al. (2019) - "Guidelines for Human-AI Interaction"
+- Horvitz (1999) - "Principles of Mixed-Initiative User Interfaces"
 
-**Complementary Intelligence**
-- Jarrahi (2018) argues for viewing AI and humans as complementary rather than competing intelligences
-- Wilson & Daugherty (2018) identify hybrid human-machine capabilities in business contexts
-- Need: Empirical validation in research-specific contexts
+### Theme 2: Role Allocation in Collaborative Systems
 
-### 2. Collaboration Patterns and Dynamics
+Prior work has explored role allocation primarily in:
+- **Crowdsourcing**: Dynamic task routing based on worker expertise
+- **CSCW**: Role-based access and responsibility in groupware
+- **Robotics**: Human-robot role negotiation
 
-**Sequential vs. Parallel Processing**
-- Traditional AI assistance follows sequential patterns: human query → AI response → human action
-- Recent work on collaborative writing (Lee et al. 2022) shows benefits of interleaved human-AI contributions
-- Research Gap: Limited study of dynamic switching between collaboration modes
+**Gap Identified:** Limited work on dynamic role allocation specifically for AI-assisted research tasks where both parties can contribute intellectually.
 
-**Shared Mental Models**
-- Cannon-Bowers et al. (1993) established importance of shared mental models in team performance
-- Recent work (Gero et al. 2020) shows challenges in establishing shared understanding with AI systems
-- Opportunity: Develop mechanisms for building and maintaining shared context over long-term collaborations
+### Theme 3: Feedback Loops and Iterative Refinement
 
-### 3. Trust and Reliance in Human-AI Systems
+Literature on iterative human-AI workflows shows:
+- Multiple rounds of feedback improve output quality
+- Diminishing returns after 3-4 iterations typically
+- Feedback specificity matters more than frequency
 
-**Calibrated Trust**
-- Lee & See (2004) framework for appropriate reliance on automated systems
-- Recent concerns about over-reliance and automation bias (Parasuraman & Manzey 2010)
-- Research Need: Dynamic trust calibration for evolving AI capabilities
+**Key Papers:**
+- Kreutzer et al. (2018) - "Reliability and Learnability of Human Bandit Feedback"
+- Ziegler et al. (2019) - "Fine-Tuning Language Models from Human Preferences"
 
-**Transparency and Explainability**
-- Growing emphasis on explainable AI for building appropriate trust
-- Tension between transparency and cognitive load (Kulesza et al. 2015)
-- Gap: Context-aware explanation strategies for different collaboration phases
+### Theme 4: Cognitive Load in Human-AI Interaction
 
-### 4. Task-Specific Collaboration Studies
+Research indicates:
+- AI assistance can reduce cognitive load for routine tasks
+- AI assistance can increase cognitive load for verification tasks
+- Optimal load distribution depends on task type and user expertise
 
-**Creative Tasks**
-- AI assistance in creative writing shows mixed results (Clark et al. 2018, Gero & Chilton 2019)
-- Some evidence that AI can enhance creativity through idea generation
-- Research Gap: Systematic study across different types of creative research tasks
+## Literature Gaps
 
-**Analytical Tasks**
-- Promising results for AI-assisted data analysis (Wongsuphasawat et al. 2019)
-- Challenges in maintaining analyst agency and preventing automation bias
-- Need: Frameworks for maintaining human insight in AI-augmented analysis
+1. **Long-term collaboration dynamics**: Most studies focus on single-session interactions
+2. **Research-specific tasks**: Limited work on complex, open-ended intellectual tasks
+3. **Adaptive role boundaries**: No systematic study of when/how roles should shift
+4. **Knowledge accumulation**: How shared understanding develops over time
 
-**Synthesis and Writing**
-- Recent work on AI writing assistants (Coenen et al. 2021)
-- Challenges in maintaining authorial voice and intent
-- Opportunity: Adaptive assistance based on writing phase and individual preferences
+## Theoretical Foundations
 
-### 5. Long-term Collaboration and Learning
+### Distributed Cognition (Hutchins, 1995)
+- Cognitive processes distributed across people, artifacts, and environment
+- Relevant for understanding how AI extends human cognition
 
-**Adaptive Interfaces**
-- Some work on systems that adapt to user preferences over time
-- Limited research on bi-directional learning (AI learning from human, human learning about AI)
-- Research Gap: Sustained adaptation over extended research projects
+### Activity Theory (Engeström, 1987)
+- Tools mediate human activity
+- AI as a mediating artifact in research activity
 
-**Collaborative Memory**
-- Work on shared workspaces and external memory systems
-- Recent interest in AI systems that maintain conversation history
-- Need: Systematic approaches to collaborative knowledge accumulation
+### Transactive Memory Systems (Wegner, 1987)
+- Groups develop shared knowledge of "who knows what"
+- Applicable to human-AI pairs developing mutual awareness
 
-## Identified Research Gaps
+## Papers to Review
 
-### Gap 1: Dynamic Role Allocation
-Most existing work assumes static roles. Limited research on systems that can dynamically allocate leadership, execution, and review responsibilities based on real-time assessment.
+| Paper | Relevance | Status |
+|-------|-----------|--------|
+| "Human-AI Collaboration in Data Science" (Wang et al., 2019) | High | To read |
+| "Collaborative Intelligence" (Wilson & Daugherty, 2018) | High | To read |
+| "The Future of Human-AI Collaboration" (Dellermann et al., 2019) | High | To read |
+| "Guidelines for Human-AI Interaction" (Amershi et al., 2019) | High | Read |
+| "Human Factors in AI" (Shneiderman, 2020) | Medium | To read |
 
-**Evidence**: Review of 25 papers on human-AI collaboration shows 90% use fixed role assignments
-**Implication**: Opportunity for developing adaptive allocation algorithms
+## Synthesis Notes
 
-### Gap 2: Long-term Collaboration Patterns
-Most studies focus on single-session interactions. Limited understanding of how collaboration patterns evolve over extended periods.
+The literature suggests a shift from viewing AI as a **tool** to viewing it as a **collaborator**, but lacks:
+1. Empirical frameworks for measuring collaboration effectiveness
+2. Design principles specific to research tasks
+3. Understanding of long-term dynamics
 
-**Evidence**: Only 3 of 25 reviewed papers study interactions longer than one week
-**Implication**: Need for longitudinal studies of sustained collaboration
-
-### Gap 3: Research-Specific Evaluation Metrics
-General collaboration metrics may not capture research-specific outcomes like insight generation, hypothesis refinement, or knowledge synthesis quality.
-
-**Evidence**: Existing metrics focus on task completion time and user satisfaction
-**Implication**: Need for domain-specific evaluation frameworks
-
-### Gap 4: Individual Differences in Collaboration Preferences
-Limited research on how collaboration effectiveness varies across individuals, expertise levels, and research domains.
-
-**Evidence**: Most studies report aggregate results without analyzing individual variation
-**Implication**: Need for personalization frameworks
-
-## Literature-Level Hypotheses
-
-Based on the literature review, several implicit assumptions span multiple papers:
-
-### Assumption 1: "AI as Tool" Paradigm
-**Implicit Belief**: AI systems are fundamentally tools that humans operate
-**Challenge**: This may limit the potential for true collaborative intelligence
-**Research Opportunity**: Explore AI as collaborative partner rather than instrument
-
-### Assumption 2: "Fixed Capability" Model
-**Implicit Belief**: AI and human capabilities are static within a collaboration
-**Challenge**: Ignores learning and adaptation over time
-**Research Opportunity**: Develop frameworks for evolving collaborative relationships
-
-### Assumption 3: "Task-Independent" Collaboration
-**Implicit Belief**: Good collaboration patterns generalize across all tasks
-**Challenge**: Different research tasks may require fundamentally different collaboration approaches
-**Research Opportunity**: Develop task-specific collaboration optimization
-
-## Research Priorities
-
-### Priority 1: Empirical Characterization
-- Systematic study of existing AI-human research collaborations
-- Identification of successful patterns and common failure modes
-- Development of comprehensive evaluation frameworks
-
-### Priority 2: Adaptive Framework Development
-- Algorithms for dynamic role allocation based on competency assessment
-- Mechanisms for maintaining and leveraging shared context
-- Protocols for metacognitive coordination
-
-### Priority 3: Longitudinal Validation
-- Extended studies of sustained collaborations
-- Analysis of adaptation and learning over time
-- Real-world deployment and evaluation
-
-## Key Papers for Deep Analysis
-
-1. **Amershi et al. (2019)** - "Guidelines for Human-AI Interaction" - Foundational design principles
-2. **Gero et al. (2020)** - "Mental Models of AI Agents" - Understanding human perceptions of AI capabilities
-3. **Lee et al. (2022)** - "Interleaved Human-AI Writing" - Evidence for benefits of interleaved collaboration
-4. **Jarrahi (2018)** - "Artificial Intelligence and the Future of Work" - Theoretical framework for complementary intelligence
-5. **Wilson & Daugherty (2018)** - "Collaborative Intelligence" - Business applications and hybrid capabilities
-
-## Next Steps
-
-1. Conduct detailed analysis of the 5 key papers identified above
-2. Search for recent 2023-2024 work on human-AI collaboration in research contexts
-3. Identify potential collaborators and research sites for empirical studies
-4. Begin developing formal hypotheses for experimental testing
+Our work addresses these gaps by proposing and evaluating dynamic role allocation in sustained research collaboration.
